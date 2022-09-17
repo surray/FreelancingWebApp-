@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import "../styles/projects.css";
-import axios from "axios";
+import {axiosInstance} from "../config";
 
 export default function Projects(){
    
@@ -23,7 +23,7 @@ export default function Projects(){
 
         };
         try{
-            await axios.post("http://localhost:5000/api/project/",newProject);
+            await axiosInstance.post("/api/project/",newProject);
              window.location.href = '/feeds';
         }catch(err){
 

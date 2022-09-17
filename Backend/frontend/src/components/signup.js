@@ -1,6 +1,6 @@
 import { useState,useRef } from "react";
 import "../styles/signup.css";
-import axios from "axios";
+import {axiosInstance} from "../config";
 
 export default function Signup(props){
 
@@ -17,7 +17,7 @@ export default function Signup(props){
             password:passwordRef.current.value,
         };
         try{
-            await axios.post("http://localhost:5000/api/signup/register",newUser);
+            await axiosInstance.post("/api/signup/register",newUser);
             setError(false);
             setSuccess(true);
             window.location.href = '/login';

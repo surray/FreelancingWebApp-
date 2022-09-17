@@ -1,6 +1,6 @@
 import { useState,useRef } from "react";
 import "../styles/login.css";
-import axios from "axios";
+import {axiosInstance} from "../config";
 
 export default function Login(){
 
@@ -17,7 +17,7 @@ export default function Login(){
             password:passwordRef.current.value,
         };
         try{
-            const res =await axios.post("http://localhost:5000/api/signup/login",user);
+            const res =await axiosInstance.post("/api/signup/login",user);
             myStorage.setItem("user",res.data.username)
             setCurrentUser(res.data.username)
             setSuccess(true);

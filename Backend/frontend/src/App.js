@@ -7,7 +7,7 @@ import Feeds from './components/feeds';
 import Myprojects from './components/myprojects';
 import { BrowserRouter as Router,Route } from "react-router-dom";
 import {useState,useEffect} from 'react';
-import axios from "axios";
+import {axiosInstance} from "./config";
 import Navbar from './components/navbar';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   useEffect(()=>{
     const getProjects =async ()=>{
       try{
-        var res =await axios.get("http://localhost:5000/api/project/");
+        var res =await axiosInstance.get("/api/project/");
         setProjects(res.data);
         console.log(res.data);
         } catch(err){
