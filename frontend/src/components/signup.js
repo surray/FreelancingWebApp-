@@ -47,6 +47,7 @@ export default function Signup(props){
                     <span className="success" > SignUp Sucessful!</span>}
                     {error &&
                     <span className="error"> SignUp failed!</span>}
+                    <button className="login" onClick={event =>  window.location.href='/login'}>Login</button>
                                       
                 </div>
             </form>

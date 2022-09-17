@@ -7,6 +7,7 @@ router.post("/",async(req,res)=>{
     try{
        
         const newProject = new projectadd({
+            userName:req.body.userName,
             projectName:req.body.projectName,
             projectDesc:req.body.projectDesc,
             projectSkills:req.body.projectSkills,
@@ -30,6 +31,11 @@ router.get("/",async(req,res)=>{
     }catch(err){
         res.status(500).json(err)
     }
+})
+
+router.get("/:id",async(req,res)=>{
+    var update=await projectadd.findById(req.params.id);
+    res.json(update);
 })
 
 

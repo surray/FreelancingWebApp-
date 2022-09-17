@@ -2,6 +2,11 @@ const mongoose =require('mongoose');
 
 const projectSchema = new mongoose.Schema(
     {
+        userName:{
+            type:String,
+            require:true,
+            min:6,
+        },
         projectName:{
             type:String,
             require:true,

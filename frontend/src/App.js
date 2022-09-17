@@ -4,15 +4,45 @@ import Signup from './components/signup';
 import Login from './components/login';
 import Projects from './components/projects';
 import Feeds from './components/feeds';
+import Myprojects from './components/myprojects';
 import { BrowserRouter as Router,Route } from "react-router-dom";
-
+import {useState,useEffect} from 'react';
+import axios from "axios";
+import Navbar from './components/navbar';
 
 function App() {
 
   
+  const [projects,setProjects]=useState([{}]);
+  const [accept,setAccept]=useState([{}]);
   
+
+  useEffect(()=>{
+    const getProjects =async ()=>{
+      try{
+        var res =await axios.get("http://localhost:5000/api/project/");
+        setProjects(res.data);
+        console.log(res.data);
+        } catch(err){
+         console.log(err);
+        }
+     };
+    getProjects()
+   },[]);
+  
+
+  const addProject = (acceptProj) => {
+    setAccept(JSON.stringify(acceptProj))
+    console.log(acceptProj);
+    console.log(typeof(acceptProj));
+
+     }
+   
+
+
   return (
     <div className="App">
+       <Navbar/>
         <Router>
           <Route  exact path="/">
             <Signup/>
@@ -22,12 +52,16 @@ function App() {
              <Login/>
           </Route>
           
-          <Route  path="/feeds">
-           <Feeds/>
-          </Route>
-          
           <Route  path="/projects">
            <Projects/>
+          </Route>
+
+          <Route  path="/feeds">
+          <Feeds props={projects} childToParent={addProject}/>
+          </Route>
+          
+          <Route  path="/myprojects">
+            <Myprojects props2={accept}/>
           </Route>
         </Router>
       

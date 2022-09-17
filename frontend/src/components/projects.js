@@ -1,35 +1,20 @@
-import { useEffect, useState,useRef } from "react";
+import { useRef } from "react";
 import "../styles/projects.css";
 import axios from "axios";
-import Feeds from "./feeds";
-
-
 
 export default function Projects(){
    
+    const unameRef=useRef();
     const pnameRef=useRef();
     const pdescRef=useRef();
     const pskillRef=useRef();
     const ppayRef=useRef();
     const pbudRef=useRef();
-    const [projects,setProjects]=useState([{}]);
-
-    useEffect(()=>{
-        const getProjects =async ()=>{
-          try{
-            var res =await axios.get("http://localhost:5000/api/project/");
-            setProjects(res.data);
-            console.log(res.data);
-            } catch(err){
-             console.log(err);
-            }
-         };
-        getProjects()
-       },[]);
-
+    
     const handleSubmit=async(e)=>{
         e.preventDefault();
         const newProject={
+            userName:unameRef.current.value,
             projectName:pnameRef.current.value,
             projectDesc:pdescRef.current.value,
             projectSkills:pskillRef.current.value,
@@ -39,9 +24,7 @@ export default function Projects(){
         };
         try{
             await axios.post("http://localhost:5000/api/project/",newProject);
-            window.location.href = '/feeds';
-            
-            
+             window.location.href = '/feeds';
         }catch(err){
 
            console.log(err);
@@ -54,6 +37,9 @@ export default function Projects(){
             
             <form onSubmit={handleSubmit}>
                 <div className="projectContainer">
+                     <label>UserName</label>
+                    <input type="text" placeholder="projectName" ref={unameRef}/>
+
                     <label>Project title</label>
                     <input type="text" placeholder="projectName" ref={pnameRef}/>
 
@@ -73,7 +59,7 @@ export default function Projects(){
                 </div>
             </form>
             <div>
-            <Feeds props={projects}/>
+            
             </div>
         </div>
     )
